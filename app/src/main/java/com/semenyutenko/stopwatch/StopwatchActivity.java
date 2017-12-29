@@ -1,6 +1,7 @@
 package com.semenyutenko.stopwatch;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -15,6 +16,10 @@ public class StopwatchActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stopwatch);
+        if (savedInstanceState != null){
+            seconds = savedInstanceState.getInt("seconds");
+            running = savedInstanceState.getBoolean("running");
+        }
         runTimer();
     }
 
@@ -48,5 +53,11 @@ public class StopwatchActivity extends Activity {
             }
         });
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt("seconds", seconds);
+        outState.putBoolean("running", running);
     }
 }
