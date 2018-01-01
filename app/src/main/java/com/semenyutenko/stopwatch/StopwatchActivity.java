@@ -11,6 +11,7 @@ public class StopwatchActivity extends Activity {
 
     private int seconds = 0;
     private boolean running;
+    private boolean wasRunning;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,21 @@ public class StopwatchActivity extends Activity {
 
     public void onClickReset(View view) {
         seconds = 0;
+        running = false;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (wasRunning){
+            running = true;
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        wasRunning = running;
         running = false;
     }
 
